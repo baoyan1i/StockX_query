@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <link rel="stylesheet" type="text/css" href="web_setup.css" media="screen" />
+    <meta charset="UTF-8">
+    <title>StockX Search System</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+</head>
+<body>
+    <form>
+        <label>Enter to Search Sneaker</label>
+        <input class="search-box">
+    </form>
+    <form></form>
+        <label>Enter Search Price From</label>
+        <input class="enter-price-from">
+    </form>
+    <form>
+        <label>Enter Search Price To</label>
+        <input class="enter-price-to">
+    </form>
+    <button onclick="getAutoComplete()">Search</button>
+
+
+    <style>
+        body
+        {
+            background-image: url({{ url_for('static', filename="download.jpeg") }});
+            background-repeat: no-repeat ;
+            background-attachment: fixed;
+            background-position: center;
+            background-size: 500px 400px;
+
+
+
+        }
+    </style>
+    <ul class="res"></ul>
+    <script>
+        {#$(document).ready(function () {#}
+        {#    let debounce;#}
+        {#    $('.search-box').on('keydown', function (e)  {#}
+        {#        clearTimeout(debounce)#}
+        {#        debounce = setTimeout(() => {#}
+        {#            getAutoComplete();#}
+        {#        }, 300);#}
+        {#        })#}
+        {#    $('.enter-price-from').on('keydown', function (e)  {#}
+        {#        clearTimeout(debounce)#}
+        {#        debounce = setTimeout(() => {#}
+        {#            getAutoComplete();#}
+        {#        }, 300);#}
+        {#        })#}
+        {#    $('.enter-price-to').on('keydown', function (e)  {#}
+        {#        clearTimeout(debounce)#}
+        {#        debounce = setTimeout(() => {#}
+        {#            getAutoComplete();#}
+        {#        }, 300);#}
+        {#        })#}
+
+
+
+        function getAutoComplete(){
+            const query = $('.search-box').val();
+            const left = $('.enter-price-from').val();
+            const right = $('.enter-price-to').val()
+            fetch(`http://127.0.0.1:5000/search?q=${encodeURIComponent(query)}=${encodeURIComponent(left)}=${encodeURIComponent(right)}`).then((resp) => resp.json()).then((data) =>  {
+                $('.res').empty();
+                for (let i = 0; i < data.length; i++) {
+                    $('.res').append(`<li>${data[i]}</li>`)
+                }
+            })
+        }
+    </script>
+
+</body>
+</html>
